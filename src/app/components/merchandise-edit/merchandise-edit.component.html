@@ -1,1 +1,96 @@
-<p>merchandise-edit works!</p>
+<h1>Editar Mercancía</h1>
+<div class="d-grid gap-2 d-md-flex justify-content-md-start">
+  <a class="btn btn-primary" [routerLink]="'/merchandise'" role="button"
+    >Regresar</a
+  >
+</div>
+
+<div #alert class="alert">
+  <span class="closebtn" (click)="closeAlert()">&times;</span>
+  {{ messageRequest }}
+</div>
+
+<form class="container" *ngIf="!loading" #myForm="ngForm" (ngSubmit)="editMerchandise(myForm)">
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="form-group col-md-4">
+      <label class="control-label">Nombre Producto</label>
+      <div class="">
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="currentMerchandise.nameProduct"
+          [value]="currentMerchandise.nameProduct"
+          name="nameProduct"
+          required
+        />
+      </div>
+    </div>
+
+    <div class="form-group col-md-4">
+      <label class="control-label">Cantidad</label>
+      <div class="">
+        <input
+          type="number"
+          min="1"
+          class="form-control"
+          [(ngModel)]="currentMerchandise.quantity"
+          [value]="currentMerchandise.quantity"
+          name="quantity"
+          required
+        />
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="form-group col-md-4">
+      <label class="control-label">Fecha de ingreso</label>
+      <div>
+        <input
+          type="date"
+          max="{{ actualDate }}"
+          disabled
+          class="form-control"
+          [(ngModel)]="currentMerchandise.admissionDate"
+          [value]="currentMerchandise.admissionDate"
+          name="admissionDate"
+          required
+        />
+      </div>
+    </div>
+
+    <div class="form-group col-md-4">
+      <label class="control-label">Usuario que actualiza</label>
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        [(ngModel)]="currentMerchandise.userId"
+        [value]="currentMerchandise.userId"
+        name="userId"
+      >
+        <option *ngFor="let item of listUser" [value]="item.id">
+          {{ item.userName }}
+        </option>
+      </select>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-md-9"></div>
+    <div class="form-group col-md-2">
+      <div class="">
+        <button
+          [disabled]="!myForm.valid"
+          type="submit"
+          class="btn btn-outline-primary"
+        >
+          Editar
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
